@@ -1,11 +1,30 @@
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Container, Flex, Link } from "@chakra-ui/react";
+import { NavBarLink } from "./NavBarLink";
+import { BadgeCarrito } from "./BadgeCarrito";
 
 
-export const NavBar = ({href,data}) => {
+export const NavBar = ({canPro}) => {
   return (
-   <Box bgColor='grey' m='10px' p='5px 10px' borderRadius={'10px'}>
-      <Link href={href}>{data}</Link>
-    
-   </Box>
+    <Box  display="flex"
+    flexDirection={"row"}
+   
+    >
+      <Container 
+      display="flex"
+      flexDirection={"row"}
+      fontWeight={'900'}
+      color='red.800'
+      fontFamily={'sans-serif'}
+      textShadow={'1px 1px #ffae00'}
+      >
+        <NavBarLink href={"www.google.com"} data={"Inicio"} />
+        <NavBarLink href={"www.google.com"} data={"Productos"} />
+        <NavBarLink href={"www.google.com"} data={"Servicios"} />
+        <NavBarLink href={"www.google.com"} data={"Contact"} />
+      </Container>
+      <Container display={'flex'} justifyContent={'flex-end'}>
+        <BadgeCarrito value={canPro} />
+      </Container>
+    </Box>
   );
 };

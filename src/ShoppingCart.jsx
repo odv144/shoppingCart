@@ -1,51 +1,52 @@
-import { Box, Center, Container, Text } from "@chakra-ui/react"
-import { NavBar } from "./Components/NavBar"
+import { Box, Button, Center, Container, Image, Text } from "@chakra-ui/react";
+import { NavBar } from "./Components/NavBar";
+
+import { CardMain } from "./Components/CardMain";
+import { Header } from "./Components/Header";
+import { Footer } from "./Components/Footer";
+import { CartBadge } from "./Components/CartBadge";
+import { useState } from "react";
 
 export const ShoppingCart = () => {
-    return (
-        <Box bgColor='#eeffbb'
-            maxH='100vw'
-            minH='80vh'
-        >
-            <Box bgColor='#ffaabb'
-                maxH='100vw'
-                minH='20vh'
-             
-                >
-                <Text>Logo con input para busqueda</Text>
-                <Text>Slogan de la empresa  todo con una iamgen de fondo</Text>
+  const [canPro, setCanPro] = useState(0);
 
-            </Box>
-            <Box bgColor='red.300'
-                maxH='100vw'
-                minH='10vh' display='flex' flexDirection={'row'}>
-                <NavBar href={'www.google.com'} data={'Google'}/>
-                <NavBar href={'www.google.com'} data={'Google'}/>
-                <NavBar href={'www.google.com'} data={'Google'}/>
-            </Box>
-            <Box bgColor='#eeffbb'
-                maxH='100vw'
-                minH='60vh'>
-                <Text>Main</Text>
-            </Box>
-            <Box bgColor='#efefbb'
-                maxH='100vw'
-                minH='10vh'
-                display='flex'
-            >
-                <Center bgColor='#efbaab' flexDir='column' >
-                    <Text >Footer1 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe, libero.</Text>
-                    <Text >Footer2</Text>
-                </Center>
-                <Center bgColor='#efbaab' flexDir='column' >
-                    <Text >Footer1 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe, libero.</Text>
-                    <Text >Footer2</Text>
-                </Center>
-                <Center bgColor='#efbaab' flexDir='column' >
-                    <Text >Footer1 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe, libero.</Text>
-                    <Text >Footer2</Text>
-                </Center>
-            </Box>
-        </Box>
-    )
-}
+  const onAddCanPro = () => {
+    setCanPro(canPro + 1);
+  };
+  const onDelCanPro = () => {
+    setCanPro(canPro - 1);
+  };
+
+  return (
+    <Box maxH="100vw" minH="80vh">
+      <Header />
+      <NavBar canPro={canPro} />
+      <Box display={"flex"} justifyContent={"center"}>
+        <CardMain
+          onAddCanPro={onAddCanPro}
+          onDelCanPro={onDelCanPro}
+          canPro={canPro}
+        ></CardMain>
+        <CardMain
+          onAddCanPro={onAddCanPro}
+          onDelCanPro={onDelCanPro}
+          canPro={canPro}
+        ></CardMain>
+        <CardMain
+          onAddCanPro={onAddCanPro}
+          onDelCanPro={onDelCanPro}
+          canPro={canPro}
+        ></CardMain>
+      </Box>
+      <Box 
+      bg='radial-gradient(ellipse at center, rgba(0,38,252,1) 0%, rgba(32,60,214,1) 28%, rgba(89,97,147,1) 77%, rgba(115,115,115,1) 100%)'
+      maxH="100vw" 
+      minH="10vh" 
+      display="flex"
+      color='white'
+      >
+        <Footer />
+      </Box>
+    </Box>
+  );
+};
