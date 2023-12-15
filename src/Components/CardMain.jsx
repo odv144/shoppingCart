@@ -11,8 +11,14 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import cabecera from "./../assets/cabecera.jpg";
+import { Link, NavLink } from "react-router-dom";
+import { NavBarLink } from "./NavBarLink";
+import { ProductosContext } from "../context/ProductosContext";
+import { useContext } from "react";
+
+
 export const CardMain = ({ onAddCanPro, onDelCanPro, canPro }) => {
+  const {productos} = useContext(ProductosContext)
   return (
     <Card maxW="sm" m="10px" boxShadow='10px 10px 5px 0px rgba(0,0,0,0.75)' border='2px solid #ededed'>
       <CardBody>
@@ -22,7 +28,7 @@ export const CardMain = ({ onAddCanPro, onDelCanPro, canPro }) => {
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">Living room Sofa</Heading>
+          <Heading size="md"><Link to={'/:producto'}>Living room Sofa</Link></Heading>
           <Text>
             This sofa is perfect for modern tropical spaces, baroque inspired
             spaces, earthy toned spaces and for people who love a chic design
@@ -36,8 +42,8 @@ export const CardMain = ({ onAddCanPro, onDelCanPro, canPro }) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue" onClick={()=>alert("Funcion aun no implementada")}>
-            Comprar
+          <Button variant="solid" colorScheme="blue">
+           <NavLink to={'/:producto'}>Agregar Ahora</NavLink>
           </Button>
           <Button variant="ghost" colorScheme="blue" onClick={onAddCanPro}>
             Agregar

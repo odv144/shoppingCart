@@ -17,8 +17,9 @@ export const NavBar = ({canPro}) => {
       fontFamily={'sans-serif'}
       textShadow={'1px 1px #ffae00'}
       >
-        <NavBarLink href={"www.google.com"} data={"Inicio"} />
-        <NavBarLink href={"www.google.com"} data={"Productos"} />
+        <NavBarLink href={'/'} data={"Home"} />
+        <NavBarLink href={'/carrito'} data={"Carrito"} />
+        <NavBarLink href={"/producto"} data={"Productos"} />
         <NavBarLink href={"www.google.com"} data={"Servicios"} />
         <NavBarLink href={"www.google.com"} data={"Contact"} />
       </Container>

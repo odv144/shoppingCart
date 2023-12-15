@@ -1,13 +1,32 @@
-import { Box, Button, Center, Container, Image, Text } from "@chakra-ui/react";
-import { NavBar } from "./Components/NavBar";
-
-import { CardMain } from "./Components/CardMain";
-import { Header } from "./Components/Header";
-import { Footer } from "./Components/Footer";
-import { CartBadge } from "./Components/CartBadge";
+import { useRoutes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { Carrito } from "./pages/Carrito";
+import { Home } from "./pages/Home";
 import { useState } from "react";
 
+import { Header } from "./Components/Header";
+import { NavBar } from "./Components/NavBar";
+import { Footer } from "./Components/Footer";
+import { DetailsPro } from "./pages/DetailsPro";
+import { ProductosProvider } from "./context/ProductosProvider";
+
+const routes=[
+  {
+    path:'/',
+    element:<Home 
+       
+        />
+  },
+  {
+    path:'/carrito',
+    element:<Carrito/>
+  }
+]
+
+
 export const ShoppingCart = () => {
+  const element = useRoutes(routes)
+  const [carrito,setCarrito] = useState({})
   const [canPro, setCanPro] = useState(0);
 
   const onAddCanPro = () => {
@@ -18,35 +37,28 @@ export const ShoppingCart = () => {
   };
 
   return (
-    <Box maxH="100vw" minH="80vh">
-      <Header />
-      <NavBar canPro={canPro} />
-      <Box display={"flex"} justifyContent={"center"}>
-        <CardMain
-          onAddCanPro={onAddCanPro}
-          onDelCanPro={onDelCanPro}
-          canPro={canPro}
-        ></CardMain>
-        <CardMain
-          onAddCanPro={onAddCanPro}
-          onDelCanPro={onDelCanPro}
-          canPro={canPro}
-        ></CardMain>
-        <CardMain
-          onAddCanPro={onAddCanPro}
-          onDelCanPro={onDelCanPro}
-          canPro={canPro}
-        ></CardMain>
-      </Box>
-      <Box 
-      bg='radial-gradient(ellipse at center, rgba(0,38,252,1) 0%, rgba(32,60,214,1) 28%, rgba(89,97,147,1) 77%, rgba(115,115,115,1) 100%)'
-      maxH="100vw" 
-      minH="10vh" 
-      display="flex"
-      color='white'
-      >
-        <Footer />
-      </Box>
-    </Box>
+    <ProductosProvider>
+
+    <Header/>
+    <NavBar canPro={canPro} />
+   
+     <Routes>
+        <Route  path={'/'} element={<Home
+            canPro={canPro}
+            onAddCanPro={onAddCanPro} 
+            onDelCanPro={onDelCanPro}/>}>Home</Route>
+        
+        <Route  path={'/carrito'}element={<Carrito></Carrito>}>Carrito</Route>
+        <Route  path={'/:producto'}element={<DetailsPro/>}/>
+       
+        <Route  path={'/*'}element={<Navigator to={'/'}/>}></Route>
+      </Routes>
+     
+   
+    <Footer/>    
+   
+     
+    </ProductosProvider>
+    
   );
 };
