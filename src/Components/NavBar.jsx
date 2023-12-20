@@ -2,8 +2,13 @@ import { Box, Container, Flex, Link } from "@chakra-ui/react";
 import { NavBarLink } from "./NavBarLink";
 import { BadgeCarrito } from "./BadgeCarrito";
 
+import { CarritoContext } from "../context/CarritoContext";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 
-export const NavBar = ({canPro}) => {
+
+export const NavBar = () => {
+  const {canPro} = useContext(CarritoContext)
   return (
     <Box  display="flex"
     flexDirection={"row"}
@@ -24,7 +29,7 @@ export const NavBar = ({canPro}) => {
         <NavBarLink href={"www.google.com"} data={"Contact"} />
       </Container>
       <Container display={'flex'} justifyContent={'flex-end'}>
-        <BadgeCarrito value={canPro} />
+        <NavLink to={'/carrito'}><BadgeCarrito value={canPro} /></NavLink>
       </Container>
     </Box>
   );

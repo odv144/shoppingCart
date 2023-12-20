@@ -1,7 +1,10 @@
 import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from "@chakra-ui/react"
+import { useContext } from "react";
+import { ProductosContext } from "../context/ProductosContext";
 
 
 export const DetailsPro = () => {
+  
   const cantidad = 2;
   const precio= 3000;
   const total = cantidad * precio;

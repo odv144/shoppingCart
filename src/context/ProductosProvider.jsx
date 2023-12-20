@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react'
-import {ProductosContext} from './ProductosContext'
-export const ProductosProvider = ({children}) => {
-    const [productos, setProductos] = useState([])
+import { ProductosContext } from './ProductosContext'
+
+
+export function ProductosProvider ({children}) {
+    // const api = ' https://api.escuelajs.co/api/v1/products'  //requiere cambiar la imagen a images[0]
+    const api = ' https://fakestoreapi.com/products'  
+
+  const [productos, setProductos] = useState([])
     const fetchProductos = async()=>{
-        const response = await fetch('https://fakestoreapi.com/products')
+      
+        const response = await fetch(api)
         const data = await response.json()
-        console.log(data);
+        // console.log(data);
         setProductos(data)
 
     }
     useEffect(()=>{
         fetchProductos()
     },[])
+    
+
   return (
-    <ProductosContext.ProductosProvider value={{productos}}>
-        {children}
-    </ProductosContext.ProductosProvider>
+    <ProductosContext.Provider value={productos}>
+      {children}
+    </ProductosContext.Provider>
   )
 }
