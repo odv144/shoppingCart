@@ -6,6 +6,8 @@ import { Header } from "./Components/Header";
 import { NavBar } from "./Components/NavBar";
 import { Footer } from "./Components/Footer";
 import { DetailsPro } from "./pages/DetailsPro";
+import Contacto from "./pages/Contacto";
+import { Login } from "./pages/Login";
 
 const routes = [
   {
@@ -16,6 +18,10 @@ const routes = [
     path: "/carrito",
     element: <Carrito />,
   },
+  {
+    path:'/login',
+    element:<Login/>
+  }
 ];
 
 export const ShoppingCart = () => {
@@ -37,6 +43,11 @@ export const ShoppingCart = () => {
         <Route path={"/carrito"} element={<Carrito></Carrito>}>
           Carrito
         </Route>
+        <Route path={'/contacto'}element={<Contacto></Contacto>}>
+        Contacto
+        </Route>
+        <Route path={"/login"} element={<Login />} />
+        
         <Route path={"/:producto"} element={<DetailsPro />} />
 
         <Route path={"/*"} element={<Navigator to={"/"} />}></Route>

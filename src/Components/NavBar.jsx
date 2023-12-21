@@ -21,12 +21,13 @@ export const NavBar = () => {
       color='red.800'
       fontFamily={'sans-serif'}
       textShadow={'1px 1px #ffae00'}
+      p='10px'
       >
         <NavBarLink href={'/'} data={"Home"} />
         <NavBarLink href={'/carrito'} data={"Carrito"} />
-        <NavBarLink href={"/producto"} data={"Productos"} />
-        <NavBarLink href={"www.google.com"} data={"Servicios"} />
-        <NavBarLink href={"www.google.com"} data={"Contact"} />
+        {/* <NavBarLink href={"/producto"} data={"Productos"} /> */}
+        {/* <NavBarLink href={"www.google.com"} data={"Servicios"} /> */}
+        <NavBarLink href={"/contacto"} data={"Contact"} />
       </Container>
       <Container display={'flex'} justifyContent={'flex-end'}>
         <NavLink to={'/carrito'}><BadgeCarrito value={canPro} /></NavLink>
