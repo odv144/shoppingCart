@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <React.StrictMode>
             <ChakraProvider>
-              <ShoppingCart />
+              <ShoppingCart bgcolor='white'/>
             </ChakraProvider>
           </React.StrictMode>
           ,
