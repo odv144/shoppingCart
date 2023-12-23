@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 import { CarritoContext } from "./CarritoContext";
 export const CarritoProvider = ({ children }) => {
   const initialState = [];
+  
   const [canPro, setCanPro] = useState(0);
 
   const comprasReducer = (state = initialState, action = {}) => {
@@ -65,7 +66,7 @@ export const CarritoProvider = ({ children }) => {
     };
     dispatch(action);
   };
-
+ 
   return (
     <CarritoContext.Provider
       value={{

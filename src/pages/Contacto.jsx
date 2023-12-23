@@ -20,10 +20,12 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
 import imgFormulario from "/img/formulario3.jpg?url";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const schemaVal = Yup.object().shape({
   nombre: Yup.string()
@@ -39,38 +41,32 @@ const schemaVal = Yup.object().shape({
     .required()
     .positive("Solo números positivos"),
   email: Yup.string().required().email("Correo invalido"),
-//   password: Yup.string().min(3).required("La contraseña es requerida"),
-//   confirmarPassword: Yup.string()
-//     .min(3)
-//     .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
-//     .required("Confirme la contraseña"),
+  mensaje: Yup.string()
+  .min(2, "Demasiado corto")
+  .max(1000, "Demasiado largo")
+  .required("Requirido"),
+  
 });
 
 const Contacto = () => {
+  const navigator=useNavigate()
   const initial = {
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    email: "",
-    // password: "",
-    // confirmarPassword: "",
+    nombre: "Omar Dario",
+    apellido: "virli",
+    telefono: "3482558453",
+    email: "omar.virli@gmail.com",
+    mensaje: "Estoy praticaondo reac",
+    
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-//   const [ver, setVer] = useState("password");
-//   function verClave(event) {
-//     event.preventDefault();
-//     ver == "password" ? setVer("text") : setVer("password");
-//   }
-//   const [verConf, setVerConf] = useState("password");
-//   function verClaveConf(event) {
-//     event.preventDefault();
-//     verConf == "password" ? setVerConf("text") : setVerConf("password");
-//   }
+
   const enviarDatos = (values, { resetForm }) => {
     console.log(values);
-    onOpen();
-    onClose(resetForm((values = { initial })));
+    e.prevenDefault()
+    // navigator('/envio')
+    // onOpen();
+    // onClose(resetForm((values = { initial })));
   };
 
   return (
@@ -111,11 +107,15 @@ const Contacto = () => {
                   <strong>E-Mail: </strong>
                   {values.email}
                 </Text>
+                <Text>
+                  <strong>Mensaje: </strong>
+                  {values.mensaje}
+                </Text>
               </ModalBody>
 
               <ModalFooter>
                 <Button variant="outline" mr={3} onClick={onClose}>
-                  Confirmar Envio
+                 <NavLink to={'/envio'}>Confirmar Envio</NavLink> 
                 </Button>
               </ModalFooter>
             </ModalContent>
@@ -189,94 +189,22 @@ const Contacto = () => {
                   </FormControl>
                 )}
               </Field>
-
-              {/* <Field name="password">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.password && form.touched.password}
-                  >
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        {...field}
-                        id="password"
-                        type={ver}
-                        placeholder="password"
-                        focusBorderColor="rgba(0,0,0,0.04)"
-                      />
-                      <InputRightElement>
-                        {ver == "password" && (
-                          <ViewIcon
-                            w="60px"
-                            boxSize="20px"
-                            mr="2px"
-                            color="grey"
-                            onClick={verClave}
-                          />
-                        )}
-                        {ver == "text" && (
-                          <ViewOffIcon
-                            w="60px"
-                            boxSize="20px"
-                            mr="2px"
-                            color="grey"
-                            onClick={verClave}
-                          />
-                        )}
-                      </InputRightElement>
-                    </InputGroup>
-
-                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
-              <Field name="confirmarPassword">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={
-                      form.errors.confirmarPassword &&
-                      form.touched.confirmarPassword
-                    }
-                  >
-                    <FormLabel htmlFor="confirmarPassword">
-                      Confirmar Password
-                    </FormLabel>
-                    <InputGroup>
-                      <Input
-                        {...field}
-                        id="confirmarPassword"
-                        type={verConf}
-                        placeholder="confirmarPassword"
-                        focusBorderColor="rgba(0,0,0,0.04)"
-                      />
-                      <InputRightElement>
-                        {verConf == "password" && (
-                          <ViewIcon
-                            w="60px"
-                            boxSize="20px"
-                            mr="2px"
-                            color="grey"
-                            onClick={verClaveConf}
-                          />
-                        )}
-                        {verConf == "text" && (
-                          <ViewOffIcon
-                            w="60px"
-                            boxSize="20px"
-                            mr="2px"
-                            color="grey"
-                            onClick={verClaveConf}
-                          />
-                        )}
-                      </InputRightElement>
-                    </InputGroup>
-                    <FormErrorMessage>
-                      {form.errors.confirmarPassword}
-                    </FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field> */}
+              <Field name='mensaje'>
+              {({ field, form }) => (
+                <FormControl isInvalid={form.errors.mensaje && form.touched.mensaje}>
+                  
+                  <FormLabel htmlFor ='mensaje'>Mensaje</FormLabel>
+                  <Textarea
+                     {...field}
+                      id="mensaje"
+                      placeholder="Mensaje"
+                      focusBorderColor="rgba(0,0,0,0.04)">
+                 
+                  </Textarea>
+                </FormControl>
+              )}
+             </Field>
+            
               <Button type="submit" onClick={onOpen} p="2px 30px" m="10px 10px">
                 Enviar
               </Button>

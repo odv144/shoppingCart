@@ -9,6 +9,7 @@ import { DetailsPro } from "./pages/DetailsPro";
 import Contacto from "./pages/Contacto";
 import { Login } from "./pages/Login";
 import { CompraConfirmada } from "./pages/CompraConfirmada";
+import { RtaMensaje } from "./pages/RtaMensaje";
 
 const routes = [
   {
@@ -49,6 +50,7 @@ export const ShoppingCart = () => {
         </Route>
         <Route path={"/login"} element={<Login />} />
         <Route path={"/confirmado"} element={<CompraConfirmada />} />
+        <Route path={"/envio"} element={<RtaMensaje />} />
         
         {/* <Route path={"/producto/:id"} element={<DetailsPro />} /> */}
         <Route path={"/:id"} element={<DetailsPro />} />

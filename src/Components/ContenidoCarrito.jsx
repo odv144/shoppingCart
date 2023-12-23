@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CarritoContext } from "../context/CarritoContext";
 import { Button, Flex } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
@@ -23,6 +23,23 @@ export const ContenidoCarrito = () => {
     disminuirCantidad,
     eliminarCompra,
   } = useContext(CarritoContext);
+  // const [guardar,setGuardar]=useState(
+  //   window.localStorage.getItem('producto')
+  // )
+  const setLocalStorage = value=>{
+    try{
+     
+      window.localStorage.setItem('producto',JSON.stringify(listaCompras, null, 2))
+    }catch(error){
+      console.error(error);
+    }
+  }
+  setLocalStorage('prueba')
+  // console.log(guardar);
+  if(window.localStorage.getItem('producto')!=undefined){
+    const recupero = JSON.parse(window.localStorage.getItem('producto'));
+    console.log(recupero);
+  }
   return (
     <>
       <TableContainer>
