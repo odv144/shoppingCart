@@ -1,14 +1,18 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Image } from '@chakra-ui/react'
 import portada from '/img/portada.jpg'
 export const Header = () => {
+  // const {state}=useLocation()
+  const navigate = useNavigate()
   const { login } = useContext(LoginContext);
   const cerrarSeccion=()=>{
+    navigate('/')
     login.validado=false
   }
+
   return (
     <Box
      display={'flex'}
@@ -36,7 +40,18 @@ export const Header = () => {
       >
         Siempre trabajando para darte la mejor calidad
       </Text>
-      <Flex justifyContent={'right'}>
+      <Flex mb='15px'>
+      {login.validado && 
+          <Text color="gray" fontSize={"1.5em"} >
+            Usuario: {login.user} <Button onClick={cerrarSeccion}
+            colorScheme="teal" 
+            variant={'solid'}
+            textShadow={'2px 2px black'}
+            >LOGOUT</Button>
+          </Text>
+          }
+      </Flex>
+      {/* <Flex justifyContent={'right'}>
         {login.validado ? (
           <Text color="white" fontSize={"1.5em"}>
             Usuario: {login.user} <Button onClick={cerrarSeccion}>Logout</Button>
@@ -54,7 +69,7 @@ export const Header = () => {
             </NavLink>
           </Button>
         )}
-      </Flex>
+      </Flex> */}
     </Box>
   );
 };

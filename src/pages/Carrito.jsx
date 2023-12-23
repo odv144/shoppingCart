@@ -6,7 +6,7 @@ import { ContenidoCarrito } from "../Components/ContenidoCarrito";
 export const Carrito = () => {
   const { login } = useContext(LoginContext);
   return (
-    <Box bgColor={"grey"}>
+    <Box>
       {login.validado ? <ContenidoCarrito /> : <Login />}
     </Box>
   );

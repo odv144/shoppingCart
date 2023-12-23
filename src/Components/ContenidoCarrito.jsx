@@ -1,27 +1,28 @@
 import {
-    Table,
-    TableCaption,
-    TableContainer,
-    Tbody,
-    Td,
-    Tfoot,
-    Th,
-    Thead,
-    Tr,
-  } from "@chakra-ui/table";
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/table";
 import { useContext } from "react";
 import { CarritoContext } from "../context/CarritoContext";
 import { Button, Flex } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { NavLink } from "react-router-dom";
 
 export const ContenidoCarrito = () => {
-    const {
-        canPro,
-        listaCompras,
-        aumentarCantidad,
-        disminuirCantidad,
-        eliminarCompra,
-      } = useContext(CarritoContext);
+  const {
+    canPro,
+    listaCompras,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarCompra,
+  } = useContext(CarritoContext);
   return (
     <>
       <TableContainer>
@@ -40,7 +41,7 @@ export const ContenidoCarrito = () => {
             {listaCompras.map((item) => (
               <Tr key={item.id}>
                 <Td>{item.title}</Td>
-                <Td isNumeric>{item.price}</Td>
+                <Td isNumeric>{item.price.toFixed(2)}</Td>
                 <Td isNumeric>
                   <button onClick={() => disminuirCantidad(item.id)}>
                     <MinusIcon boxSize={4} mr="5px" />
@@ -50,7 +51,7 @@ export const ContenidoCarrito = () => {
                     <AddIcon boxSize={4} ml="5px" />
                   </button>
                 </Td>
-                <Td isNumeric>{item.unidades * item.price}</Td>
+                <Td isNumeric>{(item.unidades * item.price).toFixed(2)}</Td>
                 <Td>
                   <button onClick={() => eliminarCompra(item.id)}>
                     Eliminar
@@ -64,9 +65,14 @@ export const ContenidoCarrito = () => {
               <Th>Total de la compra</Th>
               <Th></Th>
               <Th></Th>
-              <Th isNumeric>
+              <Th isNumeric fontSize={"1.5em"}>
                 {listaCompras.reduce((total, listaCompras) => {
-                  return total + listaCompras.unidades * listaCompras.price;
+                  return parseFloat(
+                    (
+                      total +
+                      listaCompras.unidades * listaCompras.price
+                    ).toFixed(2)
+                  );
                 }, 0)}
               </Th>
             </Tr>
@@ -74,13 +80,8 @@ export const ContenidoCarrito = () => {
         </Table>
       </TableContainer>
       <Flex justifyContent="center">
-        <Button
-          colorScheme="teal"
-          variant="outline"
-          m="10px"
-          onClick={() => alert("Enviando compra")}
-        >
-          Confirmar Compra
+        <Button colorScheme="teal" variant="outline" m="10px">
+          <NavLink to={"/confirmado"}>Confirmar Compra</NavLink>
         </Button>
       </Flex>
     </>

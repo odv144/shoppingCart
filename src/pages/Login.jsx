@@ -9,22 +9,30 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Text,
 } from "@chakra-ui/react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useContext, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+  // let { search } = useLocation();
+  // let query = new URLSearchParams(search);
+  // let star = query.get("id");
+
+  // console.log("Ya deberia cargar");
+  // // console.log(history);
+
   const { login } = useContext(LoginContext);
+
   const [ver, setVer] = useState("password");
   function verClave(event) {
     event.preventDefault();
     ver == "password" ? setVer("text") : setVer("password");
-  }
-  const [verConf, setVerConf] = useState("password");
-  function verClaveConf(event) {
-    event.preventDefault();
-    verConf == "password" ? setVerConf("text") : setVerConf("password");
   }
 
   return (
@@ -35,6 +43,18 @@ export const Login = () => {
         borderRadius={"10px"}
         boxShadow={"2px 2px 1px #999"}
       >
+        <Box>
+          {error != "" && 
+          <Text 
+          as="h2"
+          color='red'
+          fontWeight={'bold'}
+          bgColor={'#f9bbbb'}
+          p='10px'
+          m='10px'
+          borderRadius={'10px'}
+          >{error}</Text>}
+        </Box>
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
@@ -49,18 +69,25 @@ export const Login = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(login);
-            if(login.email == values.email && login.pass == values.password)
-              {
-                alert(JSON.stringify(values, null, 2)); 
-                login.validado=true;
-              }else{
-                alert("Credenciales invalidas");
+            if (login.email == values.email && login.pass == values.password) {
+             
+              navigate('/carrito')
+              // navigate("/carrito", {
+              //   replace: true,
+              //   state: {
+              //     logged: true,
+              //     name: login.user,
+              //   },
+              // });
 
-              }
-              console.log(login);
-              setSubmitting(true);
-            
+              login.validado = true;
+            } else {
+              // e.preventDefault()
+              setError("Credenciales invalidas");
+            }
+
+            setSubmitting(true);
+
             // onSubmit={(values, { setSubmitting }) => {
             //   setTimeout(() => {
             //     alert(JSON.stringify(values, null, 2));
