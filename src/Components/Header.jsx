@@ -1,24 +1,24 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
 import { Image } from "@chakra-ui/react";
 import portada from "/img/portada.jpg";
 import { Link, navigate } from "../Link";
 
 export const Header = () => {
-  const { login } = useContext(LoginContext);
+  const { login,actualizarLogin,valido } = useContext(LoginContext);
 
-  const [logueado, setLogueado] = useState(login.validado);
   useEffect(() => {
-    setLogueado(login.validado);
-  }, []);
+     console.log(login);
+  }, [valido]);
 
-  const cerrarSeccion = () => {
-    setLogueado(false);
-  };
-console.log(logueado);
-console.log(login);
+const cerrarSeccion=()=>{
+  actualizarLogin(false)
+  navigate('/')
+ 
+}
+
   return (
     <Box
       display={"flex"}
@@ -49,15 +49,16 @@ console.log(login);
       </Text>
       <Flex mb='15px'>
       
-          {logueado ?
+          {valido ?
           <Text color="gray" fontSize={"1.5em"} >
             Usuario: {login.user} 
             <Button
             colorScheme="teal" 
             variant={'solid'}
             textShadow={'2px 2px black'}
+            onClick={cerrarSeccion}
             >
-              <Link to={'/carrito'}data='LOGOUT'onClick={setLogueado(false)}/>
+            LOGOUT'
           
             </Button>
           </Text>

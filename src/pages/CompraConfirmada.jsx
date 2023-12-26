@@ -9,7 +9,7 @@ export const CompraConfirmada = () => {
     const {listaCompras,vaciarCarrito}=useContext(CarritoContext)
     const limpiarCart=()=>{
       vaciarCarrito()
-      navigate('/contacto')
+      navigate('/')
     }
     console.log('cuantas veces pasa');
   return (

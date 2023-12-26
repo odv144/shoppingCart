@@ -4,11 +4,11 @@ import { LoginContext } from "../context/LoginContext";
 import { Login } from "./Login";
 import { ContenidoCarrito } from "../Components/ContenidoCarrito";
 export const Carrito = () => {
-  const { login } = useContext(LoginContext);
+  const { login,valido } = useContext(LoginContext);
   return (
     <Box>
-      {/* {login.validado ? <ContenidoCarrito /> : <Login />} */}
-    <ContenidoCarrito></ContenidoCarrito>
+      {valido ? <ContenidoCarrito /> : <Login />}
+    {/* <ContenidoCarrito></ContenidoCarrito> */}
     </Box>
   );
 };

@@ -8,9 +8,12 @@ export const LoginProvider = ({children}) => {
         validado:false
     }
     const [login,setLogin]=useState(initValues)
-
+    const [valido,setValido]=useState(false)
+    const actualizarLogin=(value)=>{
+      setValido(value)
+    }
   return (
-    <LoginContext.Provider value={{login,setLogin}}>
+    <LoginContext.Provider value={{login,actualizarLogin,valido}}>
         {children}
     </LoginContext.Provider>
   )

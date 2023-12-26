@@ -11,15 +11,16 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik} from "formik";
 import { useContext, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
 import { navigate } from "../Link";
 
+
 export const Login = () => {
   const [error, setError] = useState("");
 
-  const { login } = useContext(LoginContext);
+  const { login,actualizarLogin,valido } = useContext(LoginContext);
 
   const [ver, setVer] = useState("password");
   function verClave(event) {
@@ -63,8 +64,9 @@ export const Login = () => {
           onSubmit={(values, { setSubmitting }) => {
             if (login.email == values.email && login.pass == values.password) {
               
-              login.validado = true;
-            
+             
+              actualizarLogin(true)
+          
               navigate('/')
               // navigate("/carrito", {
               //   replace: true,
