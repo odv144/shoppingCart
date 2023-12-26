@@ -1,32 +1,83 @@
 import { useEffect, useReducer, useState } from "react";
 import { CarritoContext } from "./CarritoContext";
+import { LoginContext } from "./LoginContext";
+
+const guardarCarrito = (value) => {
+  try {
+    window.localStorage.setItem("producto", JSON.stringify(value, null, 2));
+    console.log('Seteando productos');
+    //console.log(recupero);
+    
+    
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const cargarCarrito=()=>{
+  try {
+    if (window.localStorage.getItem("producto") != undefined) {
+      let recupero = window.localStorage.getItem("producto");
+      console.log("Mostrando lo guardado");
+      console.log(JSON.parse(recupero));
+      return recupero
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export const CarritoProvider = ({ children }) => {
-  const initialState = [];
+  const [initialState, setInicial] = useState([]);
   
   const [canPro, setCanPro] = useState(0);
 
-  const comprasReducer = (state = initialState, action = {}) => {
+  const comprasReducer = (state = cargarCarrito(), action = {}) => {
+    
+    let rta
     switch (action.type) {
       case "[CARRITO]-Agregar Producto":
         setCanPro(canPro + 1);
+        rta = [...state, action.payload]
+        guardarCarrito(rta);
+        break;
         return [...state, action.payload];
 
       case "[CARRITO]-Aumentar Cantidad":
         state.map((item) => item.id == action.payload && item.unidades++);
+        rta=[...state]
+        guardarCarrito(rta);
+        break;
         return [...state];
 
       case "[CARRITO]-Disminuir Cantidad":
-        state.map((item) => item.id == action.payload && item.unidades>0&&item.unidades--);
+        state.map(
+          (item) =>
+            item.id == action.payload && item.unidades > 0 && item.unidades--
+        );
+        rta=[...state]
+        guardarCarrito(rta);
+        break;
         return [...state];
 
       case "[CARRITO]-Eliminar Producto":
         setCanPro(canPro - 1);
         return state.filter((compra) => compra.id !== action.payload);
+      case "[CARRITO]-Limpiar":
+        setCanPro(0);
+        return (state = initialState);
       default:
         return state;
     }
+    return rta
   };
   const [listaCompras, dispatch] = useReducer(comprasReducer, initialState);
+  const buscarProducto = (id)=>{
+    // const productoComprado = (listaCompras.filter((item) => item.id == id))
+    const productoComprado = (listaCompras.find((item) => item.id == id))
+    
+    return productoComprado
+  }
 
   const productoExistente = (compra) => {
     listaCompras.find((item) => item.id == compra.id)
@@ -51,7 +102,6 @@ export const CarritoProvider = ({ children }) => {
     dispatch(action);
   };
 
-
   const disminuirCantidad = (id) => {
     const action = {
       type: "[CARRITO]-Disminuir Cantidad",
@@ -66,17 +116,25 @@ export const CarritoProvider = ({ children }) => {
     };
     dispatch(action);
   };
- 
+  const vaciarCarrito = () => {
+    const action = {
+      type: "[CARRITO]-Limpiar",
+      payload: "",
+    };
+    dispatch(action);
+  };
   return (
     <CarritoContext.Provider
       value={{
         canPro,
         listaCompras,
         // agregarCompra,
+        vaciarCarrito,
         aumentarCantidad,
         disminuirCantidad,
         eliminarCompra,
         productoExistente,
+        buscarProducto
       }}
     >
       {children}

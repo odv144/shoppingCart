@@ -1,9 +1,17 @@
-import { Box, Image, Table, Td, Text, Tr } from "@chakra-ui/react"
+import { Box, Button, Image, Table, Td, Text, Tr } from "@chakra-ui/react"
 import compra from '/img/compraExitosa.jpg'
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CarritoContext } from "../context/CarritoContext"
+import { Link, navigate } from "../Link"
+
 export const CompraConfirmada = () => {
-    const {listaCompras}=useContext(CarritoContext)
+  
+    const {listaCompras,vaciarCarrito}=useContext(CarritoContext)
+    const limpiarCart=()=>{
+      vaciarCarrito()
+      navigate('/contacto')
+    }
+    console.log('cuantas veces pasa');
   return (
     <Box position={'relative'} >
         <Box 
@@ -30,8 +38,9 @@ export const CompraConfirmada = () => {
             {listaCompras.map(pro=><Tr><Td>{pro.title}</Td> <Td>{pro.unidades}</Td></Tr>)}
         </Table>
         
-        <Text>{ console.log(JSON.stringify(listaCompras, null, 2))}</Text>
+        {/* <Text>{ console.log(JSON.stringify(listaCompras, null, 2))}</Text> */}
         {/* <Image src={compra}/> */}
+       
         <Text as='p'
      
          color="black" // Puedes ajustar el color según tu diseño
@@ -40,6 +49,11 @@ export const CompraConfirmada = () => {
          fontWeight="bold" // Puedes ajustar el peso de la fuente según tu diseño
          textAlign="center"
         >Gracias por su compra. La compra se realizo correctamente</Text>
+        <Button 
+        colorScheme="red" 
+        onClick={()=>limpiarCart()}
+        m='10px'
+        >Limpiar Carrito</Button>
     </Box>
   )
 }

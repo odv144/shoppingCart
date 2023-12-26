@@ -2,24 +2,28 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ShoppingCart } from "./ShoppingCart.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter } from "react-router-dom";
 import { ProductosProvider } from "./context/ProductosProvider.jsx";
 import { CarritoProvider } from "./context/CarritoProvider.jsx";
 import { LoginProvider } from "./context/LoginProvider.jsx";
+import {
+  BrowserRouter,
+  Router,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ProductosProvider>
-    <CarritoProvider>
-      <LoginProvider>
-        <BrowserRouter>
+  <BrowserRouter>
+    <ProductosProvider>
+      <CarritoProvider>
+        <LoginProvider>
           <React.StrictMode>
             <ChakraProvider>
-              <ShoppingCart bgcolor='white'/>
+              <ShoppingCart bgcolor="white" />
             </ChakraProvider>
           </React.StrictMode>
-          ,
-        </BrowserRouter>
-      </LoginProvider>
-    </CarritoProvider>
-  </ProductosProvider>
+        </LoginProvider>
+      </CarritoProvider>
+    </ProductosProvider>
+  </BrowserRouter>
 );

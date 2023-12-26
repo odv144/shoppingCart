@@ -14,18 +14,10 @@ import {
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useContext, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { navigate } from "../Link";
 
 export const Login = () => {
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
-  // let { search } = useLocation();
-  // let query = new URLSearchParams(search);
-  // let star = query.get("id");
-
-  // console.log("Ya deberia cargar");
-  // // console.log(history);
 
   const { login } = useContext(LoginContext);
 
@@ -70,8 +62,10 @@ export const Login = () => {
           }}
           onSubmit={(values, { setSubmitting }) => {
             if (login.email == values.email && login.pass == values.password) {
-             
-              navigate('/carrito')
+              
+              login.validado = true;
+            
+              navigate('/')
               // navigate("/carrito", {
               //   replace: true,
               //   state: {
@@ -80,7 +74,6 @@ export const Login = () => {
               //   },
               // });
 
-              login.validado = true;
             } else {
               // e.preventDefault()
               setError("Credenciales invalidas");

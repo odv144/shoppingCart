@@ -1,5 +1,7 @@
-import { useRoutes } from "react-router-dom";
-import { Route, Routes } from "react-router-dom";
+// import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+// import { Suspense, lazy } from "react";
+ import { CompraConfirmada } from "./pages/CompraConfirmada";
+import { RtaMensaje } from "./pages/RtaMensaje";
 import { Carrito } from "./pages/Carrito";
 import { Home } from "./pages/Home";
 import { Header } from "./Components/Header";
@@ -8,57 +10,56 @@ import { Footer } from "./Components/Footer";
 import { DetailsPro } from "./pages/DetailsPro";
 import Contacto from "./pages/Contacto";
 import { Login } from "./pages/Login";
-import { CompraConfirmada } from "./pages/CompraConfirmada";
-import { RtaMensaje } from "./pages/RtaMensaje";
+import { Router } from "./Route";
+import { Error404 } from "./pages/Error404";
 
-const routes = [
+
+// const LazyCompraConfirmada = lazy(()=> import('./pages/CompraConfirmada.jsx'))
+const appRoutes = [
   {
     path: "/",
-    element: <Home />,
+    element: Home ,
   },
   {
     path: "/carrito",
-    element: <Carrito />,
+    element: Carrito ,
   },
   {
-    path:'/login',
-    element:<Login/>
-  }
-];
+    path: "/login",
+    element: Login ,
+  },
+  {
+    path: "/contacto",
+    element: Contacto,
+  },
+  {
+    path: "/confirmado",
+    element: CompraConfirmada ,
+  },
+  {
+    path: "/envio",
+    element: RtaMensaje ,
+  },
+  
+  {
+    path: "/detalle/:id",
+    element: DetailsPro ,
+  },
+]
+
+
 
 export const ShoppingCart = () => {
-  const element = useRoutes(routes);
-  // const [carrito, setCarrito] = useState({});
-  // const [canPro, setCanPro] = useState(0);
-
   return (
     <>
+    {/* <Suspense> */}
+
       <Header />
-
       <NavBar />
-
-      <Routes>
-        <Route path={"/"} element={<Home />}>
-          Home
-        </Route>
-
-        <Route path={"/carrito"} element={<Carrito></Carrito>}>
-          Carrito
-        </Route>
-        <Route path={'/contacto'}element={<Contacto></Contacto>}>
-        Contacto
-        </Route>
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/confirmado"} element={<CompraConfirmada />} />
-        <Route path={"/envio"} element={<RtaMensaje />} />
-        
-        {/* <Route path={"/producto/:id"} element={<DetailsPro />} /> */}
-        <Route path={"/:id"} element={<DetailsPro />} />
-
-        <Route path={"/*"} element={<Navigator to={"/"} />}></Route>
-      </Routes>
+      <Router routes={appRoutes} defaultComponent={Error404}/>
 
       <Footer />
+    {/* </Suspense> */}
     </>
   );
 };

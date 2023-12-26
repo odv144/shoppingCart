@@ -7,7 +7,8 @@ export const Carrito = () => {
   const { login } = useContext(LoginContext);
   return (
     <Box>
-      {login.validado ? <ContenidoCarrito /> : <Login />}
+      {/* {login.validado ? <ContenidoCarrito /> : <Login />} */}
+    <ContenidoCarrito></ContenidoCarrito>
     </Box>
   );
 };

@@ -11,9 +11,10 @@ import {
 } from "@chakra-ui/table";
 import { useContext, useState } from "react";
 import { CarritoContext } from "../context/CarritoContext";
-import { Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
+import { Link } from "../Link";
 
 export const ContenidoCarrito = () => {
   const {
@@ -22,26 +23,30 @@ export const ContenidoCarrito = () => {
     aumentarCantidad,
     disminuirCantidad,
     eliminarCompra,
+   vaciarCarrito,
   } = useContext(CarritoContext);
   // const [guardar,setGuardar]=useState(
   //   window.localStorage.getItem('producto')
   // )
-  const setLocalStorage = value=>{
-    try{
+  // const setLocalStorage = value=>{
+  //   try{
      
-      window.localStorage.setItem('producto',JSON.stringify(listaCompras, null, 2))
-    }catch(error){
-      console.error(error);
-    }
-  }
-  setLocalStorage('prueba')
-  // console.log(guardar);
-  if(window.localStorage.getItem('producto')!=undefined){
-    const recupero = JSON.parse(window.localStorage.getItem('producto'));
-    console.log(recupero);
-  }
+  //     window.localStorage.setItem('producto',JSON.stringify(listaCompras, null, 2))
+  //   }catch(error){
+  //     console.error(error);
+  //   }
+  // }
+  // setLocalStorage('prueba')
+  // // console.log(guardar);
+  // if(window.localStorage.getItem('producto')!=undefined){
+  //   const recupero = JSON.parse(window.localStorage.getItem('producto'));
+  //   console.log(recupero);
+  // }
   return (
     <>
+    <Box>
+      <Button onClick={()=>vaciarCarrito()}>Limpiar Carrito</Button>
+    </Box>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>Listado de productos comprados</TableCaption>
@@ -97,9 +102,11 @@ export const ContenidoCarrito = () => {
         </Table>
       </TableContainer>
       <Flex justifyContent="center">
+       {listaCompras.length>0 &&
         <Button colorScheme="teal" variant="outline" m="10px">
-          <NavLink to={"/confirmado"}>Confirmar Compra</NavLink>
+          <Link to={"/confirmado"} data={'Confirmar Compra'}/>
         </Button>
+        }
       </Flex>
     </>
   );
