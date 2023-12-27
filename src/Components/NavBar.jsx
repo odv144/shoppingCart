@@ -12,27 +12,26 @@ export const NavBar = () => {
  
   
   return (
-    <Box display="flex" flexDirection={"row"}>
-      <Container
+    <Box display="flex" flexDirection={["row"]} justifyContent={'space-evenly'} >
+      <Box
         display="flex"
-        flexDirection={"row"}
+        flexDirection={['column',"row"]}
         fontWeight={"900"}
-        color="red.800"
+        color="#960606"
         fontFamily={"sans-serif"}
         textShadow={"1px 1px #ffae00"}
         p="10px"
+        
       >
         
         <NavBarLink href={"/"} data={"Home"} />
         <NavBarLink href={"/carrito"} data={"Carrito"} />
-        {/* <NavBarLink href={"/producto"} data={"Productos"} /> */}
-        {/* <NavBarLink href={"www.google.com"} data={"Servicios"} /> */}
         <NavBarLink href={"/contacto"} data={"Contact"} />
-      </Container>
-      <Container display={"flex"} justifyContent={"flex-end"}>
+      </Box>
+      <Box display={"flex"} justifyContent={"right"}>
         <Link to={"/carrito"} data={
           <BadgeCarrito value={canPro} />}/>
-      </Container>
+      </Box>
     </Box>
   );
 };

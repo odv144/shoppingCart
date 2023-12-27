@@ -67,27 +67,16 @@ export const Login = () => {
              
               actualizarLogin(true)
           
-              navigate('/')
-              // navigate("/carrito", {
-              //   replace: true,
-              //   state: {
-              //     logged: true,
-              //     name: login.user,
-              //   },
-              // });
+              navigate('/carrito')
+             
 
             } else {
-              // e.preventDefault()
+         
               setError("Credenciales invalidas");
             }
 
             setSubmitting(true);
 
-            // onSubmit={(values, { setSubmitting }) => {
-            //   setTimeout(() => {
-            //     alert(JSON.stringify(values, null, 2));
-            //     setSubmitting(false);
-            //   }, 400);
           }}
         >
           {({ isSubmitting }) => (

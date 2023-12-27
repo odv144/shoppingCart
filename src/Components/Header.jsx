@@ -9,10 +9,6 @@ import { Link, navigate } from "../Link";
 export const Header = () => {
   const { login,actualizarLogin,valido } = useContext(LoginContext);
 
-  useEffect(() => {
-     console.log(login);
-  }, [valido]);
-
 const cerrarSeccion=()=>{
   actualizarLogin(false)
   navigate('/')
@@ -51,12 +47,13 @@ const cerrarSeccion=()=>{
       
           {valido ?
           <Text color="gray" fontSize={"1.5em"} >
-            Usuario: {login.user} 
+           {login.user} 
             <Button
             colorScheme="teal" 
             variant={'solid'}
             textShadow={'2px 2px black'}
             onClick={cerrarSeccion}
+            m='5px'
             >
             LOGOUT'
           
@@ -75,25 +72,7 @@ const cerrarSeccion=()=>{
           </Button> 
         }
       </Flex>
-      {/* <Flex justifyContent={"center"}>
-        {logueado ? (
-          <Text color="white" fontSize={"1.5em"}>
-            Usuario: {login.user}{" "}
-            <Button onClick={cerrarSeccion}>Logout</Button>
-          </Text>
-        ) : (
-          <Button colorScheme="red" variant={"outline"}>
-            <Link
-              to={"/login"}
-              data={
-                <Text color="red" fontSize={"1.5em"}>
-                  Login
-                </Text>
-              }
-            />
-          </Button>
-        )}
-      </Flex> */}
+      
     </Box>
   );
 };

@@ -5,57 +5,58 @@ import { LoginContext } from "./LoginContext";
 const guardarCarrito = (value) => {
   try {
     window.localStorage.setItem("producto", JSON.stringify(value, null, 2));
-    console.log('Seteando productos');
+
     //console.log(recupero);
-    
-    
   } catch (error) {
     console.error(error);
   }
 };
 
-const cargarCarrito=()=>{
+const cargarCarrito = () => {
   try {
     if (window.localStorage.getItem("producto") != undefined) {
       let recupero = window.localStorage.getItem("producto");
-      console.log("Mostrando lo guardado");
-      console.log(JSON.parse(recupero));
-      return recupero
+      return recupero;
     }
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const CarritoProvider = ({ children }) => {
   const [initialState, setInicial] = useState([]);
-  
+
   const [canPro, setCanPro] = useState(0);
 
   const comprasReducer = (state = cargarCarrito(), action = {}) => {
-    
-    let rta
+    let rta;
     switch (action.type) {
       case "[CARRITO]-Agregar Producto":
         setCanPro(canPro + 1);
-        rta = [...state, action.payload]
+        rta = [...state, action.payload];
         guardarCarrito(rta);
         break;
         return [...state, action.payload];
 
       case "[CARRITO]-Aumentar Cantidad":
         state.map((item) => item.id == action.payload && item.unidades++);
-        rta=[...state]
+        rta = [...state];
         guardarCarrito(rta);
         break;
         return [...state];
 
       case "[CARRITO]-Disminuir Cantidad":
-        state.map(
-          (item) =>
-            item.id == action.payload && item.unidades > 0 && item.unidades--
-        );
-        rta=[...state]
+        state.map((item) => {
+          if (item.id == action.payload && item.unidades > 0) {
+            item.unidades--;
+            rta = [...state];
+          }
+          else if(item.id == action.payload && item.unidades == 0);
+          {
+            rta = state.filter((item) => item.id != action.payload);
+          }
+        });
+
         guardarCarrito(rta);
         break;
         return [...state];
@@ -69,15 +70,15 @@ export const CarritoProvider = ({ children }) => {
       default:
         return state;
     }
-    return rta
+    return rta;
   };
   const [listaCompras, dispatch] = useReducer(comprasReducer, initialState);
-  const buscarProducto = (id)=>{
+  const buscarProducto = (id) => {
     // const productoComprado = (listaCompras.filter((item) => item.id == id))
-    const productoComprado = (listaCompras.find((item) => item.id == id))
-    
-    return productoComprado
-  }
+    const productoComprado = listaCompras.find((item) => item.id == id);
+
+    return productoComprado;
+  };
 
   const productoExistente = (compra) => {
     listaCompras.find((item) => item.id == compra.id)
@@ -123,6 +124,9 @@ export const CarritoProvider = ({ children }) => {
     };
     dispatch(action);
   };
+
+  const [cliente,setCliente]=useState({})
+
   return (
     <CarritoContext.Provider
       value={{
@@ -134,7 +138,9 @@ export const CarritoProvider = ({ children }) => {
         disminuirCantidad,
         eliminarCompra,
         productoExistente,
-        buscarProducto
+        buscarProducto,
+        cliente,
+        setCliente
       }}
     >
       {children}

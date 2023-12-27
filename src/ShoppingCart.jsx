@@ -12,12 +12,17 @@ import Contacto from "./pages/Contacto";
 import { Login } from "./pages/Login";
 import { Router } from "./Route";
 import { Error404 } from "./pages/Error404";
+import DatoCliente from "./pages/DatoCliente";
 
 
 // const LazyCompraConfirmada = lazy(()=> import('./pages/CompraConfirmada.jsx'))
 const appRoutes = [
   {
     path: "/",
+    element: Home ,
+  },
+  {
+    path: "/shoppingCart",
     element: Home ,
   },
   {
@@ -37,10 +42,14 @@ const appRoutes = [
     element: CompraConfirmada ,
   },
   {
+    path: "/datocliente",
+    element: DatoCliente ,
+  },
+  {
     path: "/envio",
     element: RtaMensaje ,
   },
-  
+ 
   {
     path: "/detalle/:id",
     element: DetailsPro ,
@@ -56,7 +65,7 @@ export const ShoppingCart = () => {
 
       <Header />
       <NavBar />
-      <Router routes={appRoutes} defaultComponent={Error404}/>
+      <Router routes={appRoutes} defaultComponent={'Error404'}/>
 
       <Footer />
     {/* </Suspense> */}
